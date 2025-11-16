@@ -7,11 +7,40 @@ function Login(props) {
   const [isSignUp, setIsSignUp] = useState(true);
 
   function handleRegister() {
-    
+    const response = fetch('https://new-be-june.onrender.com/api/register' , {
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ fullName,email,password })
+    })
+    let result = response.then(function(data){ return data.json() })
+    result.then(function(data){
+      console.log(data , "data");
+      alert("Registered Successfully")
+      setFullName("")
+      setEmail("")
+      setIsSignUp("")
+    })
   }
 
   function handleLogin() {
-    
+    const response = fetch('https://new-be-june.onrender.com/api/login' , {
+      method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email,password })
+    })
+    let result = response.then(function(data){ return data.json() })
+    result.then(function(data){
+      console.log(data , "data");
+      alert("Loggedin Successfully")
+      localStorage.setItem("token" , data.accessToken )
+      setFullName("")
+      setEmail("")
+      setIsSignUp("")
+    })
   }
 
   return (
